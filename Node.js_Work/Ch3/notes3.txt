@@ -1,0 +1,11 @@
+(err, data) => {} is the same as function(err,data){}
+
+json files seem like they'll work similar to dictionaries
+
+readdir(location, callback)
+
+data for writeFile needs to be a string (or other weird stuff)
+since ours was a JSON object, you need to put the whole thing in quotes or use it w/ JSON.stringify()
+
+fs.readFile deals w/ str
+require() deals w/ obj

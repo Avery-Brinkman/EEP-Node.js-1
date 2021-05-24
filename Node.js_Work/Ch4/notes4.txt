@@ -1,0 +1,30 @@
+Framework is an essential supporting structure 
+
+Web API
+	Service that allows you to get and save data to a server or backend
+	Ex. User creation, Show users, etc.
+
+Web frameworks for node
+	Express
+		Tried and tested
+		Simple to use
+	Sails
+		Feature rich
+		ORM 
+			Object realtional mapper
+			Gives database access 
+	Koa
+		Most modern
+
+Web Application
+	Has both front and back end functionality and is distributed across both
+
+Express.js
+	Runs within Node.js and is just on the back end
+	Community support, well documented
+	Uses more traditional development features
+	Can send requests to server, but server cannot send requests to client
+
+Socket.io
+	Real-time bi-directional event-based communication (as opposed to Express)
+	
