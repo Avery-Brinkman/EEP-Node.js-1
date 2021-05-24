@@ -1,0 +1,2 @@
+NPM = Node package manager
+Module = 1 or more packages bundled together
