@@ -1,0 +1,56 @@
+<!doctype html>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<!--Container element creates a fixed width container that centers our content inside-->
+<div class="container">
+    <!--break-->
+    <br />
+    <div class="jumbotron">
+        <!--header-->
+        <h1 class="display-4">Send message</h1>
+        <br />
+        <input class="form-control" placeholder="Name" />
+        <br />
+        <button id="send" class="btn btn-success">Send</button>
+    </div>
+    <!--id names this div so we can access it later w/ jQuery-->
+    <div id="messages">
+
+    </div>
+</div>
+
+
+<script>
+    // $() is short hand for the document ready function
+    $(() => {
+        /* When the document is ready, the callback function () will execute, 
+        which runs this */
+
+        /* Uses jQ to access the send button (thru ID) and uses click() to bind to the click event
+           by passing in a callback*/
+        $("#send").click(() => {
+            addMessages({
+                name: 'Avery', message: 'yo' // Avery and yo are placeholders
+            })
+        })
+        getMessages()
+    })
+
+    // Func addMessages takes message obj input
+    function addMessages(message) {
+        // Access message div thru ID and append HTML to it
+        // Use jQ shortcut $() and pass ID w/ #messages
+        /* Use JS template literals by using ` ` instead of ' ' (lets us inject
+            vars into our strings)*/
+        $("#messages").prepend(`<h4> ${message.name} </h4> <p> ${message.message} </p>`)
+    }
+    function getMessages() {
+        $.get('http://localhost:3000/messages', (data) => {
+            data.forEach(addMessages);
+        })
+    }
+</script>
