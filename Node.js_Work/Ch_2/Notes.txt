@@ -1,2 +1,14 @@
 NPM = Node package manager
 Module = 1 or more packages bundled together
+To run in console:
+	node .\<path>\<filename>
+nodemon acts as shortcut
+Executes file anytime there is a change
+	nodemon .\<path>\<filename>
+
+https://stackoverflow.com/questions/4037939/powershell-says-execution-of-scripts-is-disabled-on-this-system
+
+package.json file is a list that keeps track of 3rd party package dependencies
+npm install will go thru the list and install said dependencies 
+npm init creates package.json file
+npm init --yes creates package.json file w/ defaults
