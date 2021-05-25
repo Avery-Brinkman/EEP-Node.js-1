@@ -37,24 +37,25 @@ app.get('/messages', (req, res) => {
 
 app.post('/messages', async (req, res) => {
 
-    var message = new Message(req.body)
+    try {
+        var message = new Message(req.body)
 
-    var savedMessage = await message.save()
-    console.log('Saved')
-
-    var censored = await Message.findOne({ message: 'badword' })
-
-    if (censored) 
-        await Message.deleteOne({ _id: censored.id })
-    else
-        io.emit('message', req.body)
-
-    res.sendStatus(200) // No error
-
-    /*.catch((err) => {
+        var savedMessage = await message.save()
+            
+        var censored = await Message.findOne({ message: 'badword' })
+    
+        if (censored) 
+            await Message.deleteOne({ _id: censored.id })
+        else
+            io.emit('message', req.body)
+    
+        res.sendStatus(200) // No error
+    } catch (error) {
         res.sendStatus(500) // Server error
-        return console.error(err)
-    })*/
+        return console.error(error)
+    } finally {
+        console.log('Message post called (app.post())')
+    }
 })
 
 
@@ -63,11 +64,11 @@ io.on('connection', (socket) => {
 })
 
 mongoose.connect(dbUrl, { useNewUrlParser: true , useUnifiedTopology: true }, (err) => {
-    console.log('mongo db connection made\n   errs:', err)
+    console.log('Mongo DB connection made\n   Errors:', err)
 })
 
 // Gets Express server started and listening for requests
 // listen(port)
 var server = http.listen(3000, () => {
-    console.log('server is listening on port', server.address().port)
+    console.log('Server is listening on port', server.address().port)
 })
