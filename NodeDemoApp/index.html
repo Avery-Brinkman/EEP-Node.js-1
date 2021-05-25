@@ -5,6 +5,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
+<script src="/socket.io/socket.io.js"></script>
+
 <!--Container element creates a fixed width container that centers our content inside-->
 <div class="container">
     <!--break-->
@@ -13,7 +15,9 @@
         <!--header-->
         <h1 class="display-4">Send message</h1>
         <br />
-        <input class="form-control" placeholder="Name" />
+        <input id="name" class="form-control" placeholder="Name" />
+        <br />
+        <textarea id="message" class="form-control" placeholder="Message"></textarea>
         <br />
         <button id="send" class="btn btn-success">Send</button>
     </div>
@@ -25,6 +29,11 @@
 
 
 <script>
+    /* Instead of asking over and over again if something happened (polling) I'll just tell you if something
+     * happened (socket)
+     */     
+    var socket = io()
+
     // $() is short hand for the document ready function
     $(() => {
         /* When the document is ready, the callback function () will execute, 
@@ -32,16 +41,18 @@
 
         /* Uses jQ to access the send button (thru ID) and uses click() to bind to the click event
            by passing in a callback*/
+        
         $("#send").click(() => {
-            addMessages({
-                name: 'Avery', message: 'yo' // Avery and yo are placeholders
-            })
-        })
-        getMessages()
+            var message = { name: $("#name").val(), message: $("#message").val()}
+            postMessage(message)
+        }) 
+        getMessages();
     })
 
+    socket.on('message', addMessage)
+
     // Func addMessages takes message obj input
-    function addMessages(message) {
+    function addMessage(message) {
         // Access message div thru ID and append HTML to it
         // Use jQ shortcut $() and pass ID w/ #messages
         /* Use JS template literals by using ` ` instead of ' ' (lets us inject
@@ -49,8 +60,11 @@
         $("#messages").prepend(`<h4> ${message.name} </h4> <p> ${message.message} </p>`)
     }
     function getMessages() {
-        $.get('http://localhost:3000/messages', (data) => {
-            data.forEach(addMessages);
+        $.get('http://192.168.100.166:3000/messages', (data) => {
+            data.forEach(addMessage);
         })
+    }
+    function postMessage(message) {
+        $.post('http://192.168.100.166:3000/messages', message)
     }
 </script>

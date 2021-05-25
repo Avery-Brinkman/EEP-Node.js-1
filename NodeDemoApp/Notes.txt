@@ -1,0 +1,12 @@
+SQL
+	Structured Query Language
+	Keyword: Structured
+	Lots of upfront design work required for setting one up
+	Get performance and query benefits as result
+	Sometimes performance hits due to the overhead
+NoSQL
+	No structure, just collections of any data (like how I organize most things :P)
+	Less or no up front design
+
+SQL is like an automatic car, NoSQL is manual
+MongoDB is NoSQL and often used in 'mean stack'

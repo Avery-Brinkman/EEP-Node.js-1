@@ -1,6 +1,9 @@
-const { response } = require('express')
 var express = require('express') // Lets us use express stuff by typing express
+var bodyParser = require('body-parser')
 var app = express() // Set reference to app var from instance of express
+var http = require('http').Server(app)
+var io = require('socket.io')(http)
+var mongoose = require('mongoose')
 
 /* 
  * Serves static content (index.html) w/ Express
@@ -8,24 +11,63 @@ var app = express() // Set reference to app var from instance of express
  * Passes entire directory by using __dirname 
  */
 app.use(express.static(__dirname))
+app.use(bodyParser.json()) //Lets bodyparser know to expect json
+app.use(bodyParser.urlencoded({extended: false}))
 
-// Placeholder msgs list as array
-var messages = [
-    { name: 'Tim', message: 'yo!' },
-    { name: 'Jane', message: 'Yo!' }
-]
+mongoose.Promise = Promise
+
+var dbUrl = 'mongodb+srv://averybrinkman:TemporaryPassword123@learning-node.58nv1.mongodb.net/EEP_Database'
+
+var Message = mongoose.model('Message', {
+    name: String,
+    message: String
+})
 
 /* Handles get requests
  * /messages specifies the route
  * callback needs to handle request and response
  */ 
 app.get('/messages', (req, res) => {
-    // Sends to res
-    res.send(messages)
+    // Message is mongo db, {} means dont filter anything
+    Message.find({}, (err, messages) => {
+        // Sends to res
+        res.send(messages)
+    })
+})
+
+app.post('/messages', async (req, res) => {
+
+    var message = new Message(req.body)
+
+    var savedMessage = await message.save()
+    console.log('Saved')
+
+    var censored = await Message.findOne({ message: 'badword' })
+
+    if (censored) 
+        await Message.deleteOne({ _id: censored.id })
+    else
+        io.emit('message', req.body)
+
+    res.sendStatus(200) // No error
+
+    /*.catch((err) => {
+        res.sendStatus(500) // Server error
+        return console.error(err)
+    })*/
+})
+
+
+io.on('connection', (socket) => {
+    console.log('User has connected')
+})
+
+mongoose.connect(dbUrl, { useNewUrlParser: true , useUnifiedTopology: true }, (err) => {
+    console.log('mongo db connection made\n   errs:', err)
 })
 
 // Gets Express server started and listening for requests
 // listen(port)
-var server = app.listen(3000, () => {
+var server = http.listen(3000, () => {
     console.log('server is listening on port', server.address().port)
 })
