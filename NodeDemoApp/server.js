@@ -35,6 +35,10 @@ app.get('/messages', (req, res) => {
     })
 })
 
+app.get('/messages/:user', (req, res) => {
+    res.send('yo')
+})
+
 app.post('/messages', async (req, res) => {
 
     try {
