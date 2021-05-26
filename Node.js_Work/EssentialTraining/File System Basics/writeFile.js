@@ -18,3 +18,13 @@ fs.writeFile('./assets/notes.md', md.trim(), (err) => {
     }
     console.log('File saved!');
 })
+
+/* Create directory
+ * | fs.mkdir('name', (err) => {
+ * |  ...
+ * | }); 
+ * Will cause error if directory already exists.
+ * Can check with
+ * | fs.exists('name') 
+ *  or 
+ * | fs.existsSync('name') */
