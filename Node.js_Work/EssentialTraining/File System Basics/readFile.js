@@ -8,7 +8,7 @@ console.log('-------------------------------------------\n');
 fs.readFile('./assets/patrick.jpg', (err, img) => {
 
     if (err) {
-        console.log(`Error: ${err}`);
+        console.log(err);
         process.exit();
     }
 
