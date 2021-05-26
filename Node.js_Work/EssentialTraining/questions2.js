@@ -30,5 +30,4 @@ collectAnswers(questions, (answers) => {
     console.log('Thanks for answers!')
     console.log(answers)
     process.exit()
-
 })
