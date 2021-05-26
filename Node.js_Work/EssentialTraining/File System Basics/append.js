@@ -7,7 +7,7 @@ colorData.colorList.forEach((c) => {
 
     /* fs.appendFile will create files that don't
      * already exist. */
-    fs.appendFile('./assets/colors.md', `${c.name}: ${c.hex}\n`, (err) => {
+    fs.appendFile('./assets/colors.md', `${c.color}: ${c.hex}\n`, (err) => {
         if (err) {
             throw err;
         }
