@@ -6,8 +6,4 @@ const questions = [
     'What are you doing? '
 ];
 
-collectAnswers(questions, answers => {
-    console.log('Thank you for your answers.');
-    console.log(answers);
-    process.exit();
-});
+collectAnswers(questions);

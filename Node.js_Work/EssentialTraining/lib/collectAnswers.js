@@ -4,7 +4,10 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
-module.exports = (questions, doneCallback) => {
+/* "= (f) => f" gives "doneCallback" a default value that
+ * doesn't really do anything, but lets the program run
+ * even if collectAnswers isn't given a doneCallback */
+module.exports = (questions, doneCallback = (f) => f) => {
     const answers = [];
     const [firstQ] = questions;
 
