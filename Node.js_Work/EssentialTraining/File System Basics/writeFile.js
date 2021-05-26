@@ -12,7 +12,7 @@ We can write text to a new file w/ fs.writeFile
 
 `;
 
-fs.watchFile('./assets/notes.md', md.trim(), (err) => {
+fs.writeFile('./assets/notes.md', md.trim(), (err) => {
     if (err) {
         throw err;
     }
