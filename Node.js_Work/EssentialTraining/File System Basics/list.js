@@ -20,7 +20,8 @@ fs.readdir('./assets', (err, files) => {
     }
 
     console.log('Completed async!');
-    console.log(files,'\n');
-
+    console.log(files,'\n'); /* "console.log(files)" is inside the 
+                              * function for async, rather than
+                              * after for sync. */
 });
 console.log('Async readdir is still running, but this is printed.');
