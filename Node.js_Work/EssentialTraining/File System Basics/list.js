@@ -15,6 +15,10 @@ console.log('Started async reading files...');
  * a callback function in second arg */
 fs.readdir('./assets', (err, files) => {
 
+    if (err) {
+        throw err;
+    }
+
     console.log('Completed async!');
     console.log(files,'\n');
 
