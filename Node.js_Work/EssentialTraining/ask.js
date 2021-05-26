@@ -7,4 +7,5 @@ const rl = readline.createInterface({
 
 rl.question('How do you like Node? ', (answer) => {
     console.log(`Your answer: ${answer}`)
+    process.exit()
 })
