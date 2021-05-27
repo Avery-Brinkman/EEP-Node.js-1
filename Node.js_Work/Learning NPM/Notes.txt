@@ -5,10 +5,13 @@ Dependencies are packages in projects.
 package.json is a map of the project
     Author, date, version, packages, etc.
 
+
 Dev Dependencies
-    Let you use the dependencies in devlopment, but aren't included when you 'publish'
+    Let you use the dependencies in devlopment, but aren't included 
+      when you 'publish'
 
     > npm install package1 package2 package3 --save-dev
+
 
 Global Packages
     Locations
@@ -22,3 +25,140 @@ Global Packages
 
     https://docs.npmjs.com/getting-started/fixing-npm-permissions
     https://stackoverflow.com/questions/19874582/change-default-global-installation-directory-for-node-js-modules-in-windows
+
+
+Install Specific Versions
+    > npm install package@version
+
+    > npm install package@latest
+        Installs latest version
+
+
+Check if Dependencies are Outdated
+    > npm outdated 
+    > npm outdated -g
+
+
+Update Packages
+    > npm update package
+        Iffy
+    > npm install package
+        Just using install will update it.
+
+
+Removing a Package
+    > npm uninstall package
+
+
+Semantic Versioning
+    Major Release.Minor Release.Patch
+    Ex: 1.4.2
+        1st major, 4th minor, 2nd patch
+
+    ^ Before
+        Means all minor patches are okay to use
+        Ex: ^1.4.2
+            1.x.x is good enough 
+    ~ Before
+        Means all patches are okay to use
+        Ex: ~1.4.2
+            1.4.x is good enough
+    Not having these characters means you need that specific version
+        "Cement Versioning"
+
+
+package-lock.json
+    When we 'npm install', the package.json file is the input, and the 
+      package-lock.json is the output.
+    Guarantees the same install everytime you do 'npm install'
+
+    Example situation:
+        package.json shows this:
+
+            "dependencies": {
+                "express": "^4.15.4"
+            }
+
+        So, we install 4.25.3, as it's the latest version to match 4.x.x
+        But it doesn't work.
+        If package-lock.json is included, then we install 4.15.4 as it still
+          matches 4.x.x and it doesn't break anything
+
+
+NPM Cache
+    NPM keeps a cache of your install modules so that it doesn't have to get
+      them everytime.
+    
+    However, this can sometimes cause issues and not work properly/as expected
+
+    Clearing your NPM cache is STEP 1 of troubleshooting modules
+        It's the equivalent of turning it off and back on again. After hours
+          of work, it'll finally be the thing to fix it, and will feel like a
+          slap in the face that that's all it took.
+
+    > npm cache verify
+        Tells cache to try and fix itself
+    
+    > npm cache clean --force
+        Forces cache to clear
+
+
+NPM Audit
+    Checks dependencies of a project and if they are safe to use.
+    Runs automatically when you install a package.
+
+    > npm audit
+
+    "semveer" warning in audit means patch could be breaking package 
+
+    > npm audit fix
+        Does everything all at once, so can be hard to track what specific package
+          is causing any possible issues when updating.
+
+
+NPM Scripting
+    https://docs.npmjs.com/misc/scripts
+
+    In packages.json under "scripts":{...}
+    
+    Example using nodemon and babel:
+
+        "scripts": {
+            "start": "nodemon ./index.js --exec babel-node -e js"
+        }
+
+        nodemon will run index.js, but make sure that it uses babel first to
+          convert the es6 code into readable code for the web.
+
+        > npm start
+            This will take whatever is written in the "start" script and run it!
+            i.e. Now "npm start" = "nodemon ./index.js --exec babel-node -e js"
+        
+        > npm run customName
+            If the name of the script is custom, you just put run before the name.
+
+
+NPX
+    Example: I want to start a project with the Angular CLI tool, but I don't have
+      it on my system. I also don't want to have to install it. 
+    > npx -p @angular/cli ng new myapp
+        "ng new myapp" is the actual command I would use with Angular CLI
+
+    Example: I have a Mocha test file in my project, and I want to run it without
+      having to install Mocha
+    > npx mocha 
+        If I have a Mocha test file in the project, it can be ran with the temporary
+          installation of Mocha
+
+    Example: 
+    > npx cowsay hello!
+        | ________ 
+        |< hello! >
+        | --------
+        |        \   ^__^
+        |         \  (oo)\_______
+        |            (__)\       )\/\
+        |                ||----w |
+        |                ||     ||
+
+    NPX is useful in combination with package.json scripts.
