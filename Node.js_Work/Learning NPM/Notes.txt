@@ -1,0 +1,7 @@
+NPM is used to install dependencies
+NPM comes preinstalled w/ Node.js
+Dependencies are packages in projects.
+    They come with package.json file
+package.json is a map of the project
+    Author, date, version, packages, etc.
+
