@@ -5,3 +5,17 @@ Dependencies are packages in projects.
 package.json is a map of the project
     Author, date, version, packages, etc.
 
+Dev Dependencies
+    Let you use the dependencies in devlopment, but aren't included when you 'publish'
+
+    > npm install package1 package2 package3 --save-dev
+
+Global Packages
+    Locations
+        Unix-based (Mac/Linux)
+            /usr/local/lib/node_modules OR
+            /usr/local/lib/node
+        Windows 7+
+            %AppData%\npm\node_modules
+
+    > npm install -g package
