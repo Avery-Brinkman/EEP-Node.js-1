@@ -2,9 +2,12 @@ const fs = require('fs')
 
 const readStream = fs.createReadStream('./assets/lorum-ipsum.md', 'utf-8'); 
 
+let fileTxt = "";
+
 console.log('Type something...');
 readStream.on('data', (data) => {
     console.log(`I read ${data.length - 1} characters of text.`);
+    fileTxt += data;
 })
 
 /* readStream reads bit by bit. This uses less
@@ -15,4 +18,5 @@ readStream.on('data', (data) => {
 
 readStream.on('end', () => {
     console.log('Done reading file.');
+    console.log(`I read ${fileTxt.length - 1} total characters.`)
 })
