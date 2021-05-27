@@ -1,5 +1,8 @@
 // https://skimfeed.com/blog/windows-command-prompt-ls-equivalent-dir/
 
+// exec is designed for sync processes. Things that will run and close, 
+// and maybe spit back some data as a one time event.
+
 const cp = require('child_process');
 const { stderr } = require('process');
 
