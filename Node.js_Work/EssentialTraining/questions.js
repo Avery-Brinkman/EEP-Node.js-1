@@ -28,8 +28,8 @@ process.stdin.on('data', data => {
     if (answers.length < questions.length){
         ask(answers.length)
     } else {
-    process.exit() /* Without this, program just keeps listening 
-                    * and will loop */
+        process.exit() /* Without this, program just keeps listening 
+                        * and will loop */
     }
 })
 
