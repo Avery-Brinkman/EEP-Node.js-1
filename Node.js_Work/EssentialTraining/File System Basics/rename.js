@@ -32,3 +32,5 @@ setTimeout(() => {
     })
 
 }, 4000);
+
+// fs.rmdir() removes directory (must be empty first)
